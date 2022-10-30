@@ -14,7 +14,7 @@ from employees;
 
 --3. 사원들에게 배정된 job code를 출력하라. 중복된 값은 한번만 출력한다.
 select distinct job_id
-from employees
+from employees;
 
 
 --4. 가능한 모든 job code를 출력하라. 사원들에게 배정되지 않은 job code도 출력되어야 한다.
