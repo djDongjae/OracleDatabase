@@ -36,7 +36,16 @@ having count(*) >= 5;
 
 /*7. 같은 부서에서 같은 JOB을 수행중인 사원의 숫자를 부서번호별, JOB_ID별로 출력하라.
 부서번호가 커지는 순서로 정렬하되, 부서번호가 같은 경우는 JOB_ID가 커지는 순서로 정렬하라.*/
+select department_id, job_id, count(*)
+from employees 
+group by (department_id, job_id)
+order by department_id asc, job_id asc;
 
+--8. 급여의 평균이 5000이 넘는 부서를 대상으로, 부서번호와 급여의 합을 구하라.
+select department_id, sum(salary)
+from employees
+group by department_id
+having avg(salary) > 5000;
 
 --3.3.1 조인 연습
 
@@ -110,3 +119,68 @@ on departments.manager_id = employees.employee_id
 where departments.location_id = 1700
 order by employees.first_name desc, departments.department_name desc;
 
+--3.3.2 ~ 3.3.4 부속질의, 집합연산 연습
+
+--1. 최고의 급여를 받고 있는 사원의 first_name을 출력하라.
+select first_name
+from employees
+where salary = (
+select max(salary)
+from employees
+);
+
+--2. 사원의 수가 5명 이상인 부서의 부서 이름을 출력하라.
+select department_name
+from departments
+where department_id in 
+(select department_id
+from employees
+group by department_id
+having count(*) >= 5);
+
+--3. 업무 이름에 Purchasing이 들어간 업무를 하고 있는 사원의 first_name을 출력하라.
+select first_name
+from employees
+where job_id in 
+(select job_id
+from jobs
+where job_title like '%Purchasing%');
+
+--4. 소속 사원이 없는 부서의 이름을 출력하라.
+select de.department_name
+from departments de
+where not exists
+(
+select *
+from employees ep
+where de.department_id = ep.department_id
+);
+
+--5. 배당된 사원이 없는 업무의 이름(job_title)을 출력하라.
+select job_title
+from jobs
+where job_id in
+(
+select job_id
+from jobs
+minus
+select distinct job_id
+from employees
+);
+
+--6. Shipping 부서와 Human Resources 부서의 부서 이름과 주소(address)를 출력하라. 집합연산을 이용한다.
+
+--7. IT 부서와 Finance 부서 둘 다가 같이 위치한 Country_ID를 출력하라. 집합연산을 이용한다.
+select country_id
+from locations
+where location_id in 
+(select location_id
+from departments
+where department_name = 'IT')
+intersect
+select country_id
+from locations
+where location_id in 
+(select location_id
+from departments
+where department_name = 'Finance');
