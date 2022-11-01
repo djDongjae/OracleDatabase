@@ -169,6 +169,13 @@ from employees
 );
 
 --6. Shipping 부서와 Human Resources 부서의 부서 이름과 주소(address)를 출력하라. 집합연산을 이용한다.
+select departments.department_name, locations.street_address
+from departments, locations
+where departments.location_id = locations.location_id and departments.department_name = 'Shipping'
+union
+select departments.department_name, locations.street_address
+from departments, locations
+where departments.location_id = locations.location_id and departments.department_name = 'Human Resources';
 
 --7. IT 부서와 Finance 부서 둘 다가 같이 위치한 Country_ID를 출력하라. 집합연산을 이용한다.
 select country_id
