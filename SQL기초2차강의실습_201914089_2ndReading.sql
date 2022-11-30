@@ -1,4 +1,4 @@
---3.3.1 조인 연습
+---3.3.1 조인 연습
 
 --1. 100번 이하 부서에 소속된 사원의 사원번호, 성, 부서번호, 부서명을 출력하라.
 select employee_id, employees.first_name, employees.department_id, departments.department_name
