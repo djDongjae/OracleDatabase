@@ -61,4 +61,54 @@ from employees e full outer join jobs j
 using (job_id);
 
 -- 3. 부서가 배치되지 않은 위치(locations)를 포함하여 모든 위치의 도시이름(city)와 부서이름을 출력하라.
+select l.city, d.department_name
+from locations l left outer join departments d
+using (location_id);
 
+/*
+4. 위치 번호가 1700인 부서중에서, 부서장(manager)이 배치되지 않은 부서를 포함하여,
+모든 부서의 부서장의 이름(first_name)과 부서이름을 부서 이름의 역순으로 출력하라.
+*/
+select e.first_name, d.department_name
+from departments d left outer join employees e
+on e.employee_id = d.manager_id
+where d.location_id = 1700
+order by d.department_name desc;
+
+--주제: 부속질의, 집합연산
+
+--1. 최고의 급여를 받고 있는 사원의 first_name을 출력하라.
+select first_name
+from employees
+where salary = (select max(salary) from employees);
+
+--2. 사원의 수가 5명 이상인 부서의 부서 이름을 출력하라.
+select department_name
+from departments
+where department_id in (
+    select department_id
+    from employees
+    group by department_id
+    having count(*) >= 5
+);
+
+--3. 업무 이름에 Purchasing이 들어간 업무를 하고 있는 사원의 first_name을 출력하라.
+select first_name
+from employees
+where job_id in (
+    select job_id
+    from jobs
+    where job_title like '%Purchasing%'
+);
+
+/*
+최고의 급여를 받고 있는 사원의 first_name을 출력하라.
+사원의 수가 5명 이상인 부서의 부서 이름을 출력하라.
+업무 이름에 Purchasing이 들어간 업무를 하고 있는 사원의 first_name을 출력하라.
+소속 사원이 없는 부서의 이름을 출력하라.
+
+(집합연산)
+배당된 사원이 없는 업무의 이름(job_title)을 출력하라.
+Shipping 부서와 Human Resources 부서의 부서 이름과 주소(address)를 출력하라. 집합연산을 이용한다.
+IT 부서와 Finance 부서 둘 다가 같이 위치한 Country_ID를 출력하라. 집합연산을 이용한다.
+*/
