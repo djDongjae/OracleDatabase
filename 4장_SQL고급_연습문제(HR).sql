@@ -56,10 +56,15 @@ where ev.department_id = d.department_id;
 
 --3. 부서이름, 해당 부서의 평균 급여(컬럼 이름은 AVG_SAL), 부서장 이름을 갖는 뷰인 DEPARTMENT_VU를 생성하라. 뷰를 통해 내용을 확인하라.
 create view department_vu
-as select d.department_name, round(avg(salary), 2) as "avg_sal"
-from employees e, departments d
-where e.department_id =  d.department_id
-group by d.department_name;
+as select department_name, avg(e.salary) AVG_SAL, em.first_name manager_name
+from employees e join departments d using(department_id)
+join employees em on d.manager_id = em.employee_id
+group by department_name, em.first_name;
+
+select department_name, round(avg(e.salary), 1) AVG_SAL, em.first_name ||' '|| em.last_name manager_name
+from (employees e join departments d using(department_id))
+join employees em on d.manager_id = em.employee_id
+group by department_name, em.first_name, em.last_name;
 
 --4. 80번 부서에 속한 사원만 보이도록 1번에서 정의된 뷰를 수정하라.
 create view employee_vu_2

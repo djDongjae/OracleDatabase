@@ -50,3 +50,26 @@ from employees;
 --2. EMPLOYEE_VU를 이용하여, 사원이름과 해당 사원이 소속된 부서를 출력하라.
 select employee, department_id
 from employee_vu;
+
+--3. 부서이름, 해당 부서의 평균 급여(컬럼 이름은 AVG_SAL), 부서장 이름을 갖는 뷰인 DEPARTMENT_VU를 생성하라. 뷰를 통해 내용을 확인하라.
+create view department_vu
+as select d.department_name, round(avg(e.salary),1) avg_sal, em.first_name ||' '|| em.last_name manager_name
+from (employees e join departments d using(department_id))
+        join employees em on d.manager_id = em.employee_id
+group by d.department_name, em.first_name, em.last_name;
+
+--4. 80번 부서에 속한 사원만 보이도록 1번에서 정의된 뷰를 수정하라.
+create or replace view employee_vu
+as select employee_id, first_name ||' '|| last_name as employee, department_id
+    from employees
+    where department_id = 80;
+    
+--5. 사원의 성(last_name)으로 검색되는 경우가 많았다. 검색의 효율을 높일 수 있는 명령을 작성하라.
+create index employee_ix
+on employees(last_name);
+
+--6. WHERE절에서 사원번호와 부서번호가 같이 검색되는 경우가 많다. 검색의 효율을 높일 수 있는 명령을 작성하라.
+
+--7. salary가 where절에서 검색될 때는 항상 salary가 큰 사원부터 작은 사원 순서로 검색되는 경우가 많다고 가정하자. 이를 반영하여 인덱스를 설정하라.
+
+--8. 7에서 설정된 인덱스를 삭제하라.
