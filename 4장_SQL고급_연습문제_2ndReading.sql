@@ -69,7 +69,12 @@ create index employee_ix
 on employees(last_name);
 
 --6. WHERE절에서 사원번호와 부서번호가 같이 검색되는 경우가 많다. 검색의 효율을 높일 수 있는 명령을 작성하라.
+create index eix_dix
+on employees(employee_id, department_id);
 
 --7. salary가 where절에서 검색될 때는 항상 salary가 큰 사원부터 작은 사원 순서로 검색되는 경우가 많다고 가정하자. 이를 반영하여 인덱스를 설정하라.
+create index ix_salary
+on employees(salary desc);
 
 --8. 7에서 설정된 인덱스를 삭제하라.
+drop index ix_salary;
