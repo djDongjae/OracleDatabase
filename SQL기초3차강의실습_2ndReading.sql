@@ -30,17 +30,21 @@ create table employees2(
 );
 
 --4. 다음과 같이 긴 성을 입력할 수 있도록 emp3 테이블을 수정한다.
-alter table emp3 modify last_name varchar2(50);
+alter table emp3
+modify last_name varchar2(50);
 
 /*5. emp3 테이블에 loc라는 컬럼을 추가하라. varchar2 데이터 타입이어야 하며, 최대 길이 10을 가진다.
 디폴트 값으로 'LA' 값을 입력한다.*/
-alter table emp3 add loc varchar2(10) default 'LA';
+alter table emp3
+add loc varchar2(10) default 'LA';
 
 --6. emp3의 loc 컬럼이름을 loc2로 변경하라.
-alter table emp3 rename column loc to loc2;
+alter table emp3
+rename column loc to loc2;
 
 --7. employees2 테이블에서 first_name 열을 삭제한다. 삭제되었음을 확인한다.
-alter table employees2 drop column first_name;
+alter table employees2
+drop column first_name;
 
 --8. dept3 테이블의 id 컬럼을 삭제한다. 삭제가 불가능하다면, 가능하도록 해라.
 alter table emp3 drop column dept_id;
@@ -49,24 +53,26 @@ alter table dept3 drop column id;
 --9. emp3 테이블을 삭제한다.
 drop table emp3;
 drop table dept3;
+
 --[문제] 제한 조건 연습
 
 /*
 1. DDL 실습에서 생성된 DEPT3 테이블을 DEPARTMENTS 테이블을 이용하여 생성하라.
 데이터도 포함하여야 한다. ID열을 사용하여 DEPT3 테이블에 대한 PRIMARY KEY 제약조건을 생성한다. 제약조건의 이름은 my_dept_id_pk로 지정한다.
 */
-create table dept3 as
-select department_id id, department_name name
-from departments;
+create table dept3 
+as select department_id id, department_name name
+    from departments;
 
-alter table dept3 add constraints my_dept_id_pk primary key(id);
+alter table dept3
+add constraints my_dept_id_pk primary key(id);
 
 /*
 2. DDL 실습2번 문제에 따라 EMP3 테이블을 생성하라. 단, 테이블 생성시 ID 컬럼을 기본키로 설정하라.
 외래키는 설정하지 않는다. 만약 테이블이 존재한다면 삭제한 후 생성하라. 기본키 제한조건 이름은 EMP3_ID_PK로 하라.
 */
 create table emp3(
-    id number(7) constraints emp3_id_pk primary key,
+    id number constraints emp3_id_pk primary key
     last_name varchar(25),
     first_name varchar(25),
     dept_id number(7)
@@ -77,7 +83,7 @@ create table emp3(
 제약 조건 이름은 my_emp_dept_id로 한다. 부서가 삭제되면, 해당 부서에 소속되었던 사원의 소속부서의 정보는 NULL로 설정되도록 하라.
 */
 alter table emp3
-add constraints my_emp_dept_id foreign key(dept_id) references dept3(id) on delete set null;
+add constraints my_emp_dept_id foreign key(dept_id) references dept3(id) on delete set null
 
 /*
 4. DEPT3 테이블에 MANAGER_ID 컬럼을 추가하라. 이 컬럼은 EMP3 테이블의 ID를 참조한다.
