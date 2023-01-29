@@ -35,3 +35,15 @@ insert into usertbl values('YJS', '윤종신', 1969, '경남', NULL, NULL, 170, 
 insert into usertbl values('EJW', '은지원', 1972, '경북', '011', '88888888', 174, '2014-3-3');
 insert into usertbl values('JKW', '조관우', 1965, '경기', '018', '99999999', 172, '2010-10-10');
 insert into usertbl values('BBK', '바비킴', 1973, '서울', '010', '00000000', 176, '2013-5-5');
+insert into buytbl values(null, 'KBS', '운동화', null, 30, 2);
+insert into buytbl values(null, 'KBS', '노트북', '전자', 1000, 1);
+insert into buytbl values(null, 'JYP', '모니터', '전자', 200, 1);
+insert into buytbl values(null, 'BBK', '모니터', '전자', 200, 5);
+insert into buytbl values(null, 'KBS', '청바지', '의류', 50, 3);
+insert into buytbl values(null, 'BBK', '메모리', '전자', 80, 10);
+insert into buytbl values(null, 'SSK', '책', '서적', 15, 5);
+insert into buytbl values(null, 'EJW', '책', '서적', 15, 2);
+insert into buytbl values(null, 'EJW', '청바지', '의류', 50, 1);
+insert into buytbl values(null, 'BBK', '운동화', NULL, 30, 2);
+insert into buytbl values(null, 'EJW', '책', '서적', 15, 1);
+insert into buytbl values(null, 'BBK', '운동화', NULL, 30, 2);
