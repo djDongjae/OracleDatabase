@@ -37,6 +37,14 @@ where e.job_id = j.job_id
 group by job_title;
 
 -- 7. JOB 이력(history)가 있는 사원의 사원 성과 이름, JOB_HISTORY 기록 횟수를 출력하라.
-
+select e.last_name, e.first_name, count(*)
+from job_history jh, employees e
+where jh.employee_id = e.employee_id
+group by e.last_name, e.first_name;
 
 -- 8. 급여가 4000 이상인 사원들이 속한 부서의 이름을 중복을 제거하고 출력하라.
+select distinct department_name, max(salary)
+from employees e, departments d
+where e.department_id = d.department_id
+group by d.department_name
+having max(salary) >= 4000;
