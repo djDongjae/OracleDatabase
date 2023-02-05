@@ -26,3 +26,7 @@ on l.location_id = d.location_id;
 4. 위치 번호가 1700인 부서중에서, 부서장(manager)이 배치되지 않은 부서를 포함하여,
 모든 부서의 부서장의 이름(first_name)과 부서이름을 부서 이름의 역순으로 출력하라.
 */
+select e.first_name, d.department_name
+from departments d left outer join employees e
+on d.manager_id = e.employee_id
+order by d.department_name desc;
