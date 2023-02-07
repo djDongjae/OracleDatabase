@@ -56,3 +56,14 @@ from departments d, locations l
 where d.location_id = l.location_id and d.department_name = 'Human Resources';
 
 -- 3. IT 부서와 Finance 부서 둘 다가 같이 위치한 Country_ID를 출력하라. 집합연산을 이용한다.
+select a.country_id
+from (	
+    select l.country_id
+	from departments d, locations l
+	where d.location_id = l.location_id and d.department_name = 'IT'
+) a, (	
+    select l.country_id
+	from departments d, locations l
+	where d.location_id = l.location_id and d.department_name = 'Finance'
+) b
+where a.country_id = b.country_id;
