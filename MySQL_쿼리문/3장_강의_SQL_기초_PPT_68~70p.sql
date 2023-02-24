@@ -1,6 +1,17 @@
 -- 1. 다음 테이블 instance 차트를 기반으로 DEPT3 테이블을 생성한다.
+create table dept3 (
+	id integer primary key,
+    name varchar(25)
+);
 
 -- 2. 다음 테이블 instance 차트를 기반으로 EMP3 테이블을 생성한다.
+create table emp3 (
+	id integer,
+    last_name varchar(25),
+    first_name varchar(25),
+    dept_id integer,
+    foreign key(dept_id) references dept3(id)
+);
 
 /* 3. employees 테이블의 구조를 기반으로 employees2 테이블을 생성한다. 
 employee_id, first_name, last_name, salary, department_id 만 포함시키며
